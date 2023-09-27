@@ -1,0 +1,66 @@
+//make custom class called Matrix
+//data represented inside are of any size, use dynamic memory - double ** data
+matrix(unsigned int row, unsigned int col, double fill) //creates data representation of rowsxcols
+                                                        //every value initialized to fill
+                                                        //if row == 0 col == 0, size 0x0
+                                                        //int matrix[rows][cols]
+                                                        //loop thru i and j and add each element at a time
+
+operator== //checks if 2 matrices are equal
+operator!= //checks if 2 matrices are not equal
+rows() //return number of rows 
+cols() //return number of cols
+clear() //empty matrix
+
+//access stored data inside matrix class; safe accessor
+bool get(int row, int col, double num) //if row and col within bound
+                                        //store value at row,col inside num
+                                        //return true if inbound
+
+//safe modifier
+bool set(int row, int row, double num) //return true if inbound
+                                       //set value at row,col as number
+
+//outside of Matric class def, inside cpp + h file
+std::ostream& operator<< (std::ostream& out, const Matrix& m)
+/*
+row x col "matrix:"
+"[" 0,0 0,1
+1,0 1,1
+2,0 2,1 "]"
+*/
+
+multiply_by_coefficent(double coefficent) //multiply each element by coefficent
+swap_row(unsigned int sourceRow, unsigned int targetRow) //if both inbound, swap values of rows and return true. 
+                                                         //if not in bound, return false
+
+void transpose() //elements of array goes from m by n to n by m.
+
+//binary matrix operations involve two matrices 
+//write as methods, inside class def (not operatos)
+
+add(Matrix B) //if row, col of A == row, col of B
+              //modify A, returns true if dimensions saame
+              //else return false
+subtract(Matrix B)    //if row, col (dimensions) of A == B
+              //modify A, return true if dimensions same
+              //else return false
+
+//harder matrix operations
+row(unsigned int row)   //row is the number of row to retrieve 
+                        //returns double*
+col(unsigned int col) //col is the number of column to retrieve 
+                    //returns double*
+//for both, if the row/col is out of bounds, return a pointer set to NULL
+
+quarter() //no arg and returns Matrix* 
+          //Matrix* contains 4 new Matrix elements in order of
+          //Upper Left quad (UL)
+          //Upper Right quad (UR)
+          //Lower Left (LL)
+          //Lower Right (LR)
+          //all should be the same size
+          //when function ends, all local variables go out of scope and destroyed (delete[])
+
+
+//in main, add extra tests in StudentTest()
