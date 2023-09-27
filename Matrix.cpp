@@ -1,11 +1,12 @@
 #include "Matrix.h"
+#include <iostream>
 
 Matrix::Matrix(const Matrix &m)
 {
     //copy row and col
     row = m.num_rows();
     col = m.num_cols();
-
+    
     //create row
     data = new double*[row];
     for(int x = 0; x < row; x++)
@@ -128,7 +129,6 @@ bool Matrix::add(Matrix &m2)
         return true;
     }
     return false;
-    
 }
 bool Matrix::subtract(Matrix &m2)
 {
@@ -173,11 +173,11 @@ bool operator==(const Matrix &m1, const Matrix &m2)
 }
 bool operator!=(const Matrix &m1, const Matrix &m2)
 {
-    // return *this == m2;
+    return !(m1 == m2);
 }
-std::ostream& operator<< (std::ostream& out_str, const Matrix& m)
+std::ostream &operator<<(std::ostream &out_str, const Matrix &m)
 {
-    out_str << "[ ";
+    out_str << m.num_rows() << " x " << m.num_cols() <<" matrix:\n" << "[ ";
     for(int x = 0; x < m.num_rows(); x++)
     {
         for(int y = 0; y < m.num_cols(); y++)
@@ -186,17 +186,28 @@ std::ostream& operator<< (std::ostream& out_str, const Matrix& m)
             m.get(x, y, num);
             out_str << num << " ";
         }
-        "\n";
+        out_str << "\n";
     }
-    out_str << "]";
+    out_str << "]" << std::endl;
+    return out_str;
 }
 double* Matrix::get_row(unsigned int numRow) const
 {
-    return data[numRow];
+    if((int)numRow <= row)
+    {
+        return data[numRow];
+    }
+    return NULL;
+
 }
 double* Matrix::get_col(unsigned int numCol) const
 {
-    return data[numCol];
+    // if((int)numCol <= col)
+    // {
+    //     return data[(int)numCol];
+    // }
+    // return nullptr;
+
 }
 Matrix* Matrix::quarter()
 {
