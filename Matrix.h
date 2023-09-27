@@ -37,5 +37,6 @@ class Matrix
 
 bool operator==(const Matrix &m1, const Matrix &m2);
 bool operator!=(const Matrix &m1, const Matrix &m2);
-std::ostream& operator<< (std::ostream& out_str, const Matrix& m);
+std::ostream &operator<<(std::ostream &out_str, const Matrix &m);
+
 #endif
