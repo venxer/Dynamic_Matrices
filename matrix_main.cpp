@@ -221,6 +221,17 @@ void StudentTest(){
 	}
 	assert(c1[0] == 10 && c1[1] == 10);
 
+	Matrix m4(3,2,0);
+	m4.set(0,0,1);
+	m4.set(0,1,2);
+	m4.set(1,0,3);
+	m4.set(1,1,4);
+	m4.set(2,0,5);
+	m4.set(2,1,6);
+	std::cout << m4 << std::endl;
+	m4.transpose();
+	std::cout << m4 << std::endl;
+
 
 }
 
