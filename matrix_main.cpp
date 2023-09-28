@@ -210,17 +210,31 @@ void SimpleTest(){  //well behaved getrow/read after
 void StudentTest(){
 	Matrix m1(1 , 1, 1);
 	Matrix m2;
+	//Copy constuctor
 	m2 = m1;
+	//operator==
 	assert(m1 == m2);
+	std::cout << "\nOperator==: Success" << std::endl;
 
 	Matrix m3(2 , 2, 10);
+	std::cout << "m3:" << std::endl;
+	std::cout << m3 << std::endl;
+
 	double* c1 = NULL;
-	c1 = m3.get_row(1); //if 2 broken
-	for(int x = 0; x < 2; x++)
+	c1 = m3.get_row(1);
+	if(c1 != NULL)
 	{
-		std::cout << c1[x] << std::endl;
+		std::cout << "Row 2 of c1:" << std::endl;
+		for(int x = 0; x < 2; x++)
+		{
+			std::cout << c1[x] << " ";
+		}
+		std::cout << std::endl;
+		assert(c1[0] == 10 && c1[1] == 10);
 	}
-	assert(c1[0] == 10 && c1[1] == 10);
+
+	//cleans memory
+	delete []c1;
 
 	Matrix m4(3,2,0);
 	m4.set(0,0,1);
@@ -229,8 +243,11 @@ void StudentTest(){
 	m4.set(1,1,4);
 	m4.set(2,0,5);
 	m4.set(2,1,6);
+
+	std::cout << "Before Transpose:" << std::endl;
 	std::cout << m4 << std::endl;
 	m4.transpose();
+	std::cout << "After Transpose:" << std::endl;
 	std::cout << m4 << std::endl;
 
 	std::cout << "QUARTER TEST" << std::endl;
@@ -257,14 +274,15 @@ void StudentTest(){
 	std::cout << "LL: " << std::endl << qm5[2] << std::endl;
 	std::cout << "LR: " << std::endl << qm5[3] << std::endl;
 	std::cout << "=======================" << std::endl;
+	delete []qm5;
 
 	std::cout << m4 << std::endl;
-
 	Matrix* qm4 = m4.quarter();
 	std::cout << "UL: " << std::endl << qm4[0] << std::endl;
 	std::cout << "UR: " << std::endl << qm4[1] << std::endl;
 	std::cout << "LL: " << std::endl << qm4[2] << std::endl;
 	std::cout << "LR: " << std::endl << qm4[3] << std::endl;
+	delete []qm4;
 }
 
 //Write this if you write resize()
