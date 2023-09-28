@@ -259,9 +259,7 @@ void Matrix::operator=(const Matrix &m1)
         for(unsigned int y = 0; y < col; y++)
         {
             //allocate data[row][col]
-            double num;
-            m1.get(x, y, num);
-            data[x][y] = num;
+            data[x][y] = m1.data[x][y];
         }
     }
 }
