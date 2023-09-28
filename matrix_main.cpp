@@ -31,8 +31,8 @@ bool double_compare(double a, double b);
 Matrix rref(const Matrix& m);
 
 int main(){
-	// SimpleTest();
-	// std::cout << "Completed all simple tests." << std::endl;
+	SimpleTest();
+	std::cout << "Completed all simple tests." << std::endl;
 
 	//Uncomment this to allocate a lot of 100x100 matrices so leaks will be bigger.
 	/*
@@ -138,6 +138,7 @@ void SimpleTest(){  //well behaved getrow/read after
 	assert(m12.get(0,1,comparison_value));
 	assert(double_compare(comparison_value,0.0));
 	assert(m12.get(1,5,comparison_value));
+	std::cout << -3.00/20 << std::endl;
 	assert(double_compare(comparison_value,-3.00/20));
 	assert(m9.get(0,3,comparison_value));
 	assert(double_compare(comparison_value,1.0));
@@ -232,7 +233,38 @@ void StudentTest(){
 	m4.transpose();
 	std::cout << m4 << std::endl;
 
+	std::cout << "QUARTER TEST" << std::endl;
+	Matrix m5(3,4,0);
+	m5.set(0,0,1);
+	m5.set(0,1,2);
+	m5.set(0,2,3);
+	m5.set(0,3,4);
 
+	m5.set(1,0,5);
+	m5.set(1,1,6);
+	m5.set(1,2,7);
+	m5.set(1,3,8);
+
+	m5.set(2,0,9);
+	m5.set(2,1,10);
+	m5.set(2,2,11);
+	m5.set(2,3,12);
+	std::cout << m5 << std::endl;
+
+	Matrix* qm5 = m5.quarter();
+	std::cout << "UL: " << std::endl << qm5[0] << std::endl;
+	std::cout << "UR: " << std::endl << qm5[1] << std::endl;
+	std::cout << "LL: " << std::endl << qm5[2] << std::endl;
+	std::cout << "LR: " << std::endl << qm5[3] << std::endl;
+	std::cout << "=======================" << std::endl;
+
+	std::cout << m4 << std::endl;
+
+	Matrix* qm4 = m4.quarter();
+	std::cout << "UL: " << std::endl << qm4[0] << std::endl;
+	std::cout << "UR: " << std::endl << qm4[1] << std::endl;
+	std::cout << "LL: " << std::endl << qm4[2] << std::endl;
+	std::cout << "LR: " << std::endl << qm4[3] << std::endl;
 }
 
 //Write this if you write resize()
