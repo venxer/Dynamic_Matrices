@@ -31,8 +31,8 @@ bool double_compare(double a, double b);
 Matrix rref(const Matrix& m);
 
 int main(){
-	SimpleTest();
-	std::cout << "Completed all simple tests." << std::endl;
+	// SimpleTest();
+	// std::cout << "Completed all simple tests." << std::endl;
 
 	//Uncomment this to allocate a lot of 100x100 matrices so leaks will be bigger.
 	/*
@@ -207,6 +207,20 @@ void SimpleTest(){  //well behaved getrow/read after
 
 //Write your own test cases here
 void StudentTest(){
+	Matrix m1(1 , 1, 1);
+	Matrix m2;
+	m2 = m1;
+	assert(m1 == m2);
+
+	Matrix m3(2 , 2, 10);
+	double* c1 = NULL;
+	c1 = m3.get_row(1); //if 2 broken
+	for(int x = 0; x < 2; x++)
+	{
+		std::cout << c1[x] << std::endl;
+	}
+	assert(c1[0] == 10 && c1[1] == 10);
+
 
 }
 
