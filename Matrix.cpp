@@ -64,6 +64,7 @@ void Matrix::clear()
     }
     //delete row
     delete[] data;
+    data = NULL;
     row = 0;
     col = 0;
 }
@@ -108,8 +109,9 @@ void Matrix::multiply_by_coefficent(double coefficent)
 }
 bool Matrix::swap_row(unsigned int sourceRow, unsigned int targetRow)
 {
+
     //checks neg and not in bound
-    if(!(row <= sourceRow && row <= targetRow))
+    if(!(row > sourceRow && row > targetRow))
        return false;
     
     //swap rows
@@ -145,7 +147,7 @@ bool Matrix::subtract(Matrix &m2)
             {
                 double num;
                 m2.get(x, y, num);
-                data[x][y] = data[x][y] - num;
+                data[x][y] -= num;
             }
         }
         return true;
