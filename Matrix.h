@@ -19,7 +19,7 @@ class Matrix
         int num_rows() const; //get row
         int num_cols() const; //get col
         bool get(int row, int col, double &num) const;
-        bool set(int row, int col, double num);
+        bool set(const int row, const int col, const double num);
         double* get_row(unsigned int numRow) const;
         double* get_col(unsigned int numCol) const;
 
