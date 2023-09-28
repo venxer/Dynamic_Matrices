@@ -33,7 +33,10 @@ class Matrix
         double* get_col(unsigned int numCol) const;
 
         Matrix* quarter();
+
+        void operator=(const Matrix &m1);
 };
+
 
 bool operator==(const Matrix &m1, const Matrix &m2);
 bool operator!=(const Matrix &m1, const Matrix &m2);
