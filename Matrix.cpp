@@ -87,6 +87,7 @@ bool Matrix::set(int aRow, int aCol, double num)
     {
         return false;
     }
+    
     //checks neg and not in bound
     if(!(aRow >= 0 && aCol >= 0) && 
        !(row > aRow && col > aCol))
@@ -250,7 +251,29 @@ Matrix* Matrix::quarter()
 }
 void Matrix::transpose()
 {
+    //swap size of row and col;
     int temp = row;
     row = col;
     col = temp;
+    
+    //tranpose data
+    double **output = new double*[row];
+    for(int x = 0; x < row; x++)
+    {
+        output[x] = new double[col];
+        for(int y = 0; y < col; y++)
+        {
+            output[x][y] = data[y][x];
+        }
+    }
+    //saves row and col length for clear
+    int oldRow = row;
+    int oldCol = col;
+    //clear data
+    clear();
+    //provide data row and col spec
+    row = oldRow;
+    col = oldCol;
+    //set data as output which has the transposed data
+    data = output;
 }
