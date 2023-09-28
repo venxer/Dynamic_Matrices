@@ -346,17 +346,16 @@ void ExtraCreditTest(){
 /*  Function that quickly populates a rows x cols matrix with values from     
  *  start in increments of step. Does this num_times times.
  */
+
+//	BatchTest(100,0.1,100,100,d50);
 void BatchTest(double start, double step, unsigned int rows, unsigned int cols,
                unsigned int num){
 	Matrix* m_arr = new Matrix[num];
-	for(unsigned int i=0; i<num; i++)
-	{
+	for(unsigned int i=0; i<num; i++){
 		m_arr[i] = Matrix(rows,cols,0.0);
 		unsigned int curr_elem = 0;
-		for(unsigned int j=0; j<rows; j++)
-		{
-			for(unsigned int k=0; k<rows; k++)
-			{
+		for(unsigned int j=0; j<rows; j++){
+			for(unsigned int k=0; k<rows; k++){
 				m_arr[i].set(j,k,start+(step*curr_elem));
 				curr_elem++;
 			}
@@ -364,6 +363,7 @@ void BatchTest(double start, double step, unsigned int rows, unsigned int cols,
 	}
 	delete [] m_arr;
 }
+
 
 //Quick function that returns if two doubles are very similar to each other.
 bool double_compare(double a, double b){
