@@ -236,6 +236,7 @@ void StudentTest(){
 	//cleans memory
 	delete []c1;
 
+	//create and set matrix value
 	Matrix m4(3,2,0);
 	m4.set(0,0,1);
 	m4.set(0,1,2);
@@ -244,30 +245,31 @@ void StudentTest(){
 	m4.set(2,0,5);
 	m4.set(2,1,6);
 
+	//testing transpose
 	std::cout << "Before Transpose:" << std::endl;
 	std::cout << m4 << std::endl;
 	m4.transpose();
 	std::cout << "After Transpose:" << std::endl;
 	std::cout << m4 << std::endl;
 
-	std::cout << "QUARTER TEST" << std::endl;
+	//create and set matrix value
 	Matrix m5(3,4,0);
 	m5.set(0,0,1);
 	m5.set(0,1,2);
 	m5.set(0,2,3);
 	m5.set(0,3,4);
-
 	m5.set(1,0,5);
 	m5.set(1,1,6);
 	m5.set(1,2,7);
 	m5.set(1,3,8);
-
 	m5.set(2,0,9);
 	m5.set(2,1,10);
 	m5.set(2,2,11);
 	m5.set(2,3,12);
+	
+	//testing quarter
+	std::cout << "QUARTER TEST" << std::endl;
 	std::cout << m5 << std::endl;
-
 	Matrix* qm5 = m5.quarter();
 	std::cout << "UL: " << std::endl << qm5[0] << std::endl;
 	std::cout << "UR: " << std::endl << qm5[1] << std::endl;
