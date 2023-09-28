@@ -8,11 +8,11 @@ Matrix::Matrix(const Matrix &m)
     col = m.num_cols();
     
     data = new double*[row];
-    for(int x = 0; x < row; x++)
+    for(unsigned x = 0; x < row; x++)
     {
         //create row
         data[x] = new double[col];
-        for(int y = 0; y < col; y++)
+        for(unsigned y = 0; y < col; y++)
         {
             //allocate data[row][col]
             double num;
@@ -28,11 +28,11 @@ Matrix::Matrix(unsigned int aRow, unsigned int aCol, double aFill)
     fill = aFill;
 
     data = new double*[row];
-    for(int x = 0; x < row; x++)
+    for(unsigned int x = 0; x < row; x++)
     {
         //create row
         data[x] = new double[col];
-        for(int y = 0; y < col; y++)
+        for(unsigned int y = 0; y < col; y++)
         {
             //allocate data[row][col]
             data[x][y] = fill;
@@ -57,7 +57,7 @@ void Matrix::clear()
     {
         return;
     }
-    for(int x = 0; x < row; x++)
+    for(unsigned int x = 0; x < row; x++)
     {
         //delete col
         delete[] data[x];
@@ -75,7 +75,7 @@ bool Matrix::get(int aRow, int aCol, double &num) const
     }
     //checks neg and not in bound
     if(!(aRow >= 0 && aCol >= 0) || 
-       !(row > aRow && col > aCol))
+       !((int)row > aRow && (int)col > aCol))
        return false;
 
     num = data[aRow][aCol];
@@ -87,10 +87,9 @@ bool Matrix::set(int aRow, int aCol, double num)
     {
         return false;
     }
-    
     //checks neg and not in bound
     if(!(aRow >= 0 && aCol >= 0) ||
-       !(row > aRow && col > aCol))
+       !((int)row > aRow && (int)col > aCol))
        return false;
     
     data[aRow][aCol] = num; 
@@ -99,9 +98,9 @@ bool Matrix::set(int aRow, int aCol, double num)
 
 void Matrix::multiply_by_coefficent(double coefficent)
 {
-    for(int x = 0; x < row; x++)
+    for(unsigned int x = 0; x < row; x++)
     {
-        for(int y = 0; y < col; y++)
+        for(unsigned int y = 0; y < col; y++)
         {
             data[x][y] *= coefficent;
         }
@@ -110,7 +109,7 @@ void Matrix::multiply_by_coefficent(double coefficent)
 bool Matrix::swap_row(unsigned int sourceRow, unsigned int targetRow)
 {
     //checks neg and not in bound
-    if(!(row <= (int)sourceRow && row <= (int)targetRow))
+    if(!(row <= sourceRow && row <= targetRow))
        return false;
     
     //swap rows
@@ -121,11 +120,11 @@ bool Matrix::swap_row(unsigned int sourceRow, unsigned int targetRow)
 }
 bool Matrix::add(Matrix &m2)
 {
-    if(m2.num_rows() == row && m2.num_cols() == col)
+    if(m2.num_rows() == (int)row && m2.num_cols() == (int)col)
     {
-        for(int x = 0; x < row; x++)
+        for(unsigned int x = 0; x < row; x++)
         {
-            for(int y = 0; y < col; y++)
+            for(unsigned int y = 0; y < col; y++)
             {
                 double num;
                 m2.get(x, y, num);
@@ -138,11 +137,11 @@ bool Matrix::add(Matrix &m2)
 }
 bool Matrix::subtract(Matrix &m2)
 {
-    if(m2.num_rows() == row && m2.num_cols() == col)
+    if(m2.num_rows() == (int)row && m2.num_cols() == (int)col)
     {
-        for(int x = 0; x < row; x++)
+        for(unsigned int x = 0; x < row; x++)
         {
-            for(int y = 0; y < col; y++)
+            for(unsigned int y = 0; y < col; y++)
             {
                 double num;
                 m2.get(x, y, num);
@@ -160,11 +159,11 @@ void Matrix::operator=(const Matrix &m1)
     col = m1.num_cols();
     
     data = new double*[row];
-    for(int x = 0; x < row; x++)
+    for(unsigned int x = 0; x < row; x++)
     {
         //create row
         data[x] = new double[col];
-        for(int y = 0; y < col; y++)
+        for(unsigned int y = 0; y < col; y++)
         {
             //allocate data[row][col]
             double num;
@@ -223,7 +222,7 @@ double* Matrix::get_row(unsigned int numRow) const
     if(row > numRow)
     {
         double* output = new double[col];
-        for(int x = 0; x < col; x++)
+        for(unsigned int x = 0; x < col; x++)
         {
             output[x] = data[numRow][x];
         }
@@ -237,7 +236,7 @@ double* Matrix::get_col(unsigned int numCol) const
     if(col > numCol)
     {
         double *output = new double(row);
-        for(int x = 0; x < row; x++)
+        for(unsigned int x = 0; x < row; x++)
         {
             output[x] = data[x][col];
         }
@@ -286,11 +285,6 @@ Matrix* Matrix::quarter()
         {
             for(int c = 0; c < qCol; c++)
             {
-                // std::cout << "--- " << std::endl;
-                // std::cout << "row: " << r << std::endl;
-                // std::cout << "col: " << c << std::endl;
-                // std::cout << "--- " << std::endl;
-
                 double value;
                 get(r + rStart, c + cStart, value);
 
@@ -310,10 +304,10 @@ void Matrix::transpose()
     col = temp;
     //creates new double pointer with size of transposed data
     double **output = new double*[row];
-    for(int x = 0; x < row; x++)
+    for(unsigned int x = 0; x < row; x++)
     {
         output[x] = new double[col];
-        for(int y = 0; y < col; y++)
+        for(unsigned int y = 0; y < col; y++)
         {
             //tranpose data 
             output[x][y] = data[y][x];
