@@ -14,25 +14,23 @@ class Matrix
         Matrix(const Matrix &m);
         Matrix(unsigned int row = 0, unsigned int col = 0, double fill = 0.0);
         ~Matrix();
+        void clear(); //clear
 
         int num_rows() const; //get row
         int num_cols() const; //get col
-        void clear(); //clear
-
         bool get(int row, int col, double &num) const;
         bool set(int row, int col, double num);
-        
-        void multiply_by_coefficent(double coefficent);
-        bool swap_row(unsigned int sourceRow, unsigned int targetRow);
-        void transpose();
-
-        bool add(Matrix &m2); //return true if dimensions match
-        bool subtract(Matrix &m2); //return true if dimension match
-        
         double* get_row(unsigned int numRow) const;
         double* get_col(unsigned int numCol) const;
 
+        bool swap_row(unsigned int sourceRow, unsigned int targetRow);
+
+        void multiply_by_coefficent(double coefficent);
+        bool add(Matrix &m2);
+        bool subtract(Matrix &m2);
+
         Matrix* quarter();
+        void transpose();
 
         void operator=(const Matrix &m1);
 };
@@ -41,5 +39,4 @@ class Matrix
 bool operator==(const Matrix &m1, const Matrix &m2);
 bool operator!=(const Matrix &m1, const Matrix &m2);
 std::ostream &operator<<(std::ostream &out_str, const Matrix &m);
-
 #endif
