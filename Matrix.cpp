@@ -7,11 +7,10 @@ Matrix::Matrix(const Matrix &m)
     row = m.num_rows();
     col = m.num_cols();
     
-    //create row
     data = new double*[row];
     for(int x = 0; x < row; x++)
     {
-        //create col
+        //create row
         data[x] = new double[col];
         for(int y = 0; y < col; y++)
         {
@@ -28,11 +27,10 @@ Matrix::Matrix(unsigned int aRow, unsigned int aCol, double aFill)
     col = aCol;
     fill = aFill;
 
-    //create row
     data = new double*[row];
     for(int x = 0; x < row; x++)
     {
-        //create col
+        //create row
         data[x] = new double[col];
         for(int y = 0; y < col; y++)
         {
@@ -55,21 +53,29 @@ int Matrix::num_cols() const
 }
 void Matrix::clear()
 {
+    if(data == NULL)
+    {
+        return;
+    }
     for(int x = 0; x < row; x++)
     {
         //delete col
         delete[] data[x];
     }
     //delete row
+    delete[] data;
     row = 0;
     col = 0;
-    delete[] data;
 }
 bool Matrix::get(int aRow, int aCol, double &num) const
 {
+    if(data == NULL)
+    {
+        return false;
+    }
     //checks neg and not in bound
     if(!(aRow >= 0 && aCol >= 0) && 
-       !(row <= aRow && col <= aCol))
+       !(row > aRow && col > aCol))
        return false;
 
     num = data[aRow][aCol];
@@ -77,9 +83,13 @@ bool Matrix::get(int aRow, int aCol, double &num) const
 }
 bool Matrix::set(int aRow, int aCol, double num)
 {
+    if(data == NULL)
+    {
+        return false;
+    }
     //checks neg and not in bound
     if(!(aRow >= 0 && aCol >= 0) && 
-       !(row <= aRow && col <= aCol))
+       !(row > aRow && col > aCol))
        return false;
     
     data[aRow][aCol] = num; 
@@ -92,7 +102,7 @@ void Matrix::multiply_by_coefficent(double coefficent)
     {
         for(int y = 0; y < col; y++)
         {
-            data[x][y] = data[x][y] * coefficent;
+            data[x][y] *= coefficent;
         }
     }
 }
@@ -108,10 +118,6 @@ bool Matrix::swap_row(unsigned int sourceRow, unsigned int targetRow)
     data[sourceRow] = data[targetRow];
     data[targetRow] = temp;
     return true;
-}
-void Matrix::transpose()
-{
-
 }
 bool Matrix::add(Matrix &m2)
 {
@@ -147,6 +153,26 @@ bool Matrix::subtract(Matrix &m2)
     }
     return false;
 }
+void Matrix::operator=(const Matrix &m1)
+{
+    clear();
+    row = m1.num_rows();
+    col = m1.num_cols();
+    
+    data = new double*[row];
+    for(int x = 0; x < row; x++)
+    {
+        //create row
+        data[x] = new double[col];
+        for(int y = 0; y < col; y++)
+        {
+            //allocate data[row][col]
+            double num;
+            m1.get(x, y, num);
+            data[x][y] = num;
+        }
+    }
+}
 bool operator==(const Matrix &m1, const Matrix &m2)
 {
     //check if same size
@@ -177,7 +203,7 @@ bool operator!=(const Matrix &m1, const Matrix &m2)
 }
 std::ostream &operator<<(std::ostream &out_str, const Matrix &m)
 {
-    out_str << m.num_rows() << " x " << m.num_cols() <<" matrix:\n" << "[ ";
+    out_str << "\n" << m.num_rows() << " x " << m.num_cols() <<" matrix:\n" << "[ ";
     for(int x = 0; x < m.num_rows(); x++)
     {
         for(int y = 0; y < m.num_cols(); y++)
@@ -186,30 +212,45 @@ std::ostream &operator<<(std::ostream &out_str, const Matrix &m)
             m.get(x, y, num);
             out_str << num << " ";
         }
-        out_str << "\n";
+        if(x != m.num_rows() - 1 ) out_str << "\n";
     }
     out_str << "]" << std::endl;
     return out_str;
 }
 double* Matrix::get_row(unsigned int numRow) const
 {
-    if((int)numRow <= row)
+    if(row > numRow)
     {
-        return data[numRow];
+        double* output = new double[col];
+        for(int x = 0; x < col; x++)
+        {
+            output[x] = data[numRow][x];
+        }
+        return output;
     }
     return NULL;
 
 }
 double* Matrix::get_col(unsigned int numCol) const
 {
-    // if((int)numCol <= col)
-    // {
-    //     return data[(int)numCol];
-    // }
-    // return nullptr;
-
+    if(col > numCol)
+    {
+        double *output = new double(row);
+        for(int x = 0; x < row; x++)
+        {
+            output[x] = data[x][col];
+        }
+        return output;
+    }
+    return NULL;
 }
 Matrix* Matrix::quarter()
 {
     
+}
+void Matrix::transpose()
+{
+    int temp = row;
+    row = col;
+    col = temp;
 }
