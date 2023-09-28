@@ -4,8 +4,8 @@
 Matrix::Matrix(const Matrix &m)
 {
     //copy row and col
-    row = m.num_rows();
-    col = m.num_cols();
+    row = m.row;
+    col = m.col;
     
     data = new double*[row];
     for(unsigned x = 0; x < row; x++)
@@ -15,9 +15,7 @@ Matrix::Matrix(const Matrix &m)
         for(unsigned y = 0; y < col; y++)
         {
             //allocate data[row][col]
-            double num;
-            m.get(x, y, num);
-            data[x][y] = num;
+            data[x][y] = m.data[x][y];
         }
     }
 }
@@ -53,10 +51,6 @@ int Matrix::num_cols() const
 }
 void Matrix::clear()
 {
-    if(data == NULL)
-    {
-        return;
-    }
     for(unsigned int x = 0; x < row; x++)
     {
         //delete col
@@ -70,27 +64,17 @@ void Matrix::clear()
 }
 bool Matrix::get(int aRow, int aCol, double &num) const
 {
-    if(data == NULL)
-    {
-        return false;
-    }
     //checks neg and not in bound
-    if(!(aRow >= 0 && aCol >= 0) || 
-       !((int)row > aRow && (int)col > aCol))
+    if(!((int)row > aRow && (int)col > aCol))
        return false;
 
     num = data[aRow][aCol];
     return true;
 }
-bool Matrix::set(int aRow, int aCol, double num)
+bool Matrix::set(const int aRow, const int aCol, const double num)
 {
-    if(data == NULL)
-    {
-        return false;
-    }
     //checks neg and not in bound
-    if(!(aRow >= 0 && aCol >= 0) ||
-       !((int)row > aRow && (int)col > aCol))
+    if(!((int)row > aRow && (int)col > aCol))
        return false;
     
     data[aRow][aCol] = num; 
