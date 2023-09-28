@@ -35,11 +35,9 @@ int main(){
 	std::cout << "Completed all simple tests." << std::endl;
 
 	//Uncomment this to allocate a lot of 100x100 matrices so leaks will be bigger.
-	/*
 	BatchTest(100,0.1,100,100,50);
 	std::cout << "Completed all batch tests." << std::endl;
-	*/
-
+	
 	StudentTest();
 	std::cout << "Completed all student tests." << std::endl;
 
@@ -253,7 +251,7 @@ void StudentTest(){
 	std::cout << m4 << std::endl;
 
 	//create and set matrix value
-	Matrix m5(3,4,0);
+	Matrix m5(5,5,0);
 	m5.set(0,0,1);
 	m5.set(0,1,2);
 	m5.set(0,2,3);
@@ -268,16 +266,16 @@ void StudentTest(){
 	m5.set(2,3,12);
 	
 	//testing quarter
-	std::cout << "QUARTER TEST" << std::endl;
+	std::cout << "QUARTER TEST 1" << std::endl;
 	std::cout << m5 << std::endl;
 	Matrix* qm5 = m5.quarter();
 	std::cout << "UL: " << std::endl << qm5[0] << std::endl;
 	std::cout << "UR: " << std::endl << qm5[1] << std::endl;
 	std::cout << "LL: " << std::endl << qm5[2] << std::endl;
 	std::cout << "LR: " << std::endl << qm5[3] << std::endl;
-	std::cout << "=======================" << std::endl;
 	delete []qm5;
-
+	std::cout << "--------------------" << std::endl;
+	std::cout << "QUARTER TEST 2" << std::endl;
 	std::cout << m4 << std::endl;
 	Matrix* qm4 = m4.quarter();
 	std::cout << "UL: " << std::endl << qm4[0] << std::endl;
@@ -285,6 +283,56 @@ void StudentTest(){
 	std::cout << "LL: " << std::endl << qm4[2] << std::endl;
 	std::cout << "LR: " << std::endl << qm4[3] << std::endl;
 	delete []qm4;
+
+	//testing swap row
+	std::cout << "SWAP ROW TEST" << std::endl;
+	std::cout << "Before Swap:" << std::endl;
+	std::cout << m4 << std::endl;
+	std::cout << "After Swap:" << std::endl;
+	m4.swap_row(0, 1);
+	std::cout << m4 << std::endl;
+	std::cout << "Invalid Swap:" << std::endl;
+	m4.swap_row(0, 2);
+	std::cout << m4 << std::endl;
+	
+	//create and set matrix value
+	Matrix m6(5,5,0);
+	m6.set(0,0,1);
+	m6.set(0,1,1);
+	m6.set(0,2,1);
+	m6.set(0,3,1);
+	m6.set(1,0,2);
+	m6.set(1,1,2);
+	m6.set(1,2,2);
+	m6.set(1,3,2);
+	m6.set(2,0,3);
+	m6.set(2,1,3);
+	m6.set(2,2,3);
+	m6.set(2,3,3);
+
+	//testing add
+	std::cout << "ADD TEST" << std::endl;
+	std::cout << "Before add:" << std::endl;
+	std::cout << m5 << std::endl;
+	std::cout << "After add:" << std::endl;
+	m5.add(m6);
+	std::cout << m5 << std::endl;
+
+	//testing subtract
+	std::cout << "Subtract TEST" << std::endl;
+	std::cout << "Before subtract:" << std::endl;
+	std::cout << m6 << std::endl;
+	std::cout << "After subtract:" << std::endl;
+	m6.subtract(m6);
+	std::cout << m6 << std::endl;
+
+	//testing multiply
+	std::cout << "MULTIPLY TEST" << std::endl;
+	std::cout << "Before multiply:" << std::endl;
+	std::cout << m3 << std::endl;
+	std::cout << "After multiply:" << std::endl;
+	m3.multiply_by_coefficent(4.0);
+	std::cout << m3 << std::endl;
 }
 
 //Write this if you write resize()
@@ -301,11 +349,14 @@ void ExtraCreditTest(){
 void BatchTest(double start, double step, unsigned int rows, unsigned int cols,
                unsigned int num){
 	Matrix* m_arr = new Matrix[num];
-	for(unsigned int i=0; i<num; i++){
+	for(unsigned int i=0; i<num; i++)
+	{
 		m_arr[i] = Matrix(rows,cols,0.0);
 		unsigned int curr_elem = 0;
-		for(unsigned int j=0; j<rows; j++){
-			for(unsigned int k=0; k<rows; k++){
+		for(unsigned int j=0; j<rows; j++)
+		{
+			for(unsigned int k=0; k<rows; k++)
+			{
 				m_arr[i].set(j,k,start+(step*curr_elem));
 				curr_elem++;
 			}
