@@ -249,8 +249,6 @@ Matrix* Matrix::quarter()
 {
     int qRow = (int)(0.5 + row/2.0);
     int qCol = (int)(0.5 + col/2.0);
-    int rCount = 0;
-    int cCount = 0;
     Matrix* output = new Matrix[4];
     for(int x = 0; x < 4; x++)
     {
@@ -304,29 +302,29 @@ Matrix* Matrix::quarter()
 }
 void Matrix::transpose()
 {
+    //saves length row before transpose
+    int oldRow = row;
     //swap size of row and col;
     int temp = row;
     row = col;
     col = temp;
-    
-    //tranpose data
+    //creates new double pointer with size of transposed data
     double **output = new double*[row];
     for(int x = 0; x < row; x++)
     {
         output[x] = new double[col];
         for(int y = 0; y < col; y++)
         {
+            //tranpose data 
             output[x][y] = data[y][x];
         }
     }
-    //saves row and col length for clear
-    int oldRow = row;
-    int oldCol = col;
-    //clear data
-    clear();
-    //provide data row and col spec
-    row = oldRow;
-    col = oldCol;
+    //clear memory in data
+    for(int y = 0; y < oldRow; y++)
+    {
+        delete[] data[y];
+    }
+    delete[] data;
     //set data as output which has the transposed data
     data = output;
 }
