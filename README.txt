@@ -27,24 +27,34 @@ number of columns.  You should assume that calling new [] or delete []
 on an array will take time proportional to the number of elements in
 the array.
 
+O(1)
 get
 
+O(1)
 set
 
+O(1)
 num_rows
 
+O(N)
 get_column
 
+O(N^2)
 operator<<
 
+O(N^2)
 quarter
 
+O(N^2)
 operator==
 
+O(N^2)
 operator!=
 
+O(1)
 swap_rows
 
+O(m^2 n)
 rref (provided in matrix_main.cpp)
 
 
