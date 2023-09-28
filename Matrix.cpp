@@ -74,7 +74,7 @@ bool Matrix::get(int aRow, int aCol, double &num) const
         return false;
     }
     //checks neg and not in bound
-    if(!(aRow >= 0 && aCol >= 0) && 
+    if(!(aRow >= 0 && aCol >= 0) || 
        !(row > aRow && col > aCol))
        return false;
 
@@ -89,7 +89,7 @@ bool Matrix::set(int aRow, int aCol, double num)
     }
     
     //checks neg and not in bound
-    if(!(aRow >= 0 && aCol >= 0) && 
+    if(!(aRow >= 0 && aCol >= 0) ||
        !(row > aRow && col > aCol))
        return false;
     
@@ -110,8 +110,7 @@ void Matrix::multiply_by_coefficent(double coefficent)
 bool Matrix::swap_row(unsigned int sourceRow, unsigned int targetRow)
 {
     //checks neg and not in bound
-    if(!((int)sourceRow >= 0 && (int)targetRow >= 0) && 
-       !(row <= (int)sourceRow && row <= (int)targetRow))
+    if(!(row <= (int)sourceRow && row <= (int)targetRow))
        return false;
     
     //swap rows
@@ -130,7 +129,7 @@ bool Matrix::add(Matrix &m2)
             {
                 double num;
                 m2.get(x, y, num);
-                data[x][y] = data[x][y] + num;
+                data[x][y] += num;
             }
         }
         return true;
@@ -207,13 +206,14 @@ std::ostream &operator<<(std::ostream &out_str, const Matrix &m)
     out_str << "\n" << m.num_rows() << " x " << m.num_cols() <<" matrix:\n" << "[ ";
     for(int x = 0; x < m.num_rows(); x++)
     {
+         if(x != 0) out_str << "  ";
         for(int y = 0; y < m.num_cols(); y++)
         {
             double num = 0;
             m.get(x, y, num);
             out_str << num << " ";
         }
-        if(x != m.num_rows() - 1 ) out_str << "\n";
+        if(x != m.num_rows() - 1) out_str << "\n";
     }
     out_str << "]" << std::endl;
     return out_str;
@@ -247,7 +247,60 @@ double* Matrix::get_col(unsigned int numCol) const
 }
 Matrix* Matrix::quarter()
 {
-    
+    int qRow = (int)(0.5 + row/2.0);
+    int qCol = (int)(0.5 + col/2.0);
+    int rCount = 0;
+    int cCount = 0;
+    Matrix* output = new Matrix[4];
+    for(int x = 0; x < 4; x++)
+    {
+        //set size for each quarter
+        output[x] = Matrix(qRow, qCol, 0.0);
+        int rStart = 0;
+        int cStart = 0;
+        if(x == 0)
+        {
+            rStart = 0;
+            cStart = 0;
+        }
+        if(x == 1)
+        {
+            rStart = 0;
+            cStart = qCol;
+            if(col % 2 != 0) cStart = qCol - 1;
+
+        }
+        if(x == 2)
+        {
+            rStart = qRow;
+            if(row % 2 != 0) rStart = qRow - 1;
+            cStart = 0;
+        }
+        if(x == 3)
+        {
+            rStart = qRow;
+            if(row % 2 != 0) rStart = qRow - 1;
+            cStart = qCol;
+            if(col % 2 != 0) cStart = qCol - 1;
+        }
+
+        for(int r = 0; r < qRow; r++)
+        {
+            for(int c = 0; c < qCol; c++)
+            {
+                // std::cout << "--- " << std::endl;
+                // std::cout << "row: " << r << std::endl;
+                // std::cout << "col: " << c << std::endl;
+                // std::cout << "--- " << std::endl;
+
+                double value;
+                get(r + rStart, c + cStart, value);
+
+                output[x].set(r, c, value);
+            }
+        }
+    }
+    return output;
 }
 void Matrix::transpose()
 {
