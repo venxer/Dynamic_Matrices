@@ -218,11 +218,25 @@ void StudentTest(){
 	std::cout << "m3:" << std::endl;
 	std::cout << m3 << std::endl;
 
+	//get row test
+	double* r1 = NULL;
+	r1 = m3.get_row(1);
+	if(r1 != NULL)
+	{
+		std::cout << "Row 2 of m3:" << std::endl;
+		for(int x = 0; x < 2; x++)
+		{
+			std::cout << r1[x] << " ";
+		}
+		std::cout << std::endl;
+		assert(r1[0] == 10 && r1[1] == 10);
+	}
+	//get col test
 	double* c1 = NULL;
-	c1 = m3.get_row(1);
+	c1 = m3.get_col(1);
 	if(c1 != NULL)
 	{
-		std::cout << "Row 2 of c1:" << std::endl;
+		std::cout << "Col 2 of m3:" << std::endl;
 		for(int x = 0; x < 2; x++)
 		{
 			std::cout << c1[x] << " ";
@@ -232,6 +246,7 @@ void StudentTest(){
 	}
 
 	//cleans memory
+	delete []r1;
 	delete []c1;
 
 	//create and set matrix value
@@ -310,6 +325,7 @@ void StudentTest(){
 	m6.set(2,2,3);
 	m6.set(2,3,3);
 
+	Matrix n = NULL;
 	//testing add
 	std::cout << "ADD TEST" << std::endl;
 	std::cout << "Before add:" << std::endl;
