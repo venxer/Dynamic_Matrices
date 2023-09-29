@@ -151,9 +151,7 @@ bool Matrix::add(Matrix &m2)
         {
             for(unsigned int y = 0; y < col; y++)
             {
-                double num;
-                m2.get(x, y, num);
-                data[x][y] += num;
+                data[x][y] += m2.data[x][y];
             }
         }
         return true;
@@ -170,9 +168,7 @@ bool Matrix::subtract(Matrix &m2)
         {
             for(unsigned int y = 0; y < col; y++)
             {
-                double num;
-                m2.get(x, y, num);
-                data[x][y] -= num;
+                data[x][y] -= m2.data[x][y];
             }
         }
         return true;
@@ -218,14 +214,12 @@ Matrix* Matrix::quarter()
             if(col % 2 != 0) cStart = qCol - 1;
         }
 
+        //loops through each quarter
         for(int r = 0; r < qRow; r++)
         {
             for(int c = 0; c < qCol; c++)
             {
-                double value;
-                get(r + rStart, c + cStart, value);
-
-                output[x].set(r, c, value);
+                output[x].set(r, c, data[r + rStart][c + cStart]);
             }
         }
     }
@@ -292,6 +286,7 @@ bool operator==(const Matrix &m1, const Matrix &m2)
                 double value2;
                 m1.get(x, y, value1);
                 m2.get(x, y, value2);
+
                 //checks if m1 value = m2 value
                 if(value1 != value2)
                 {
