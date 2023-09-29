@@ -119,7 +119,6 @@ double* Matrix::get_col(unsigned int numCol) const
 }
 bool Matrix::swap_row(unsigned int sourceRow, unsigned int targetRow)
 {
-
     //checks in bound
     if(!(row > sourceRow && row > targetRow))
        return false;
