@@ -90,7 +90,7 @@ double* Matrix::get_row(unsigned int numRow) const
     if(row > numRow)
     {
         //creates a pointer of doubles length col to store data from row
-        double* output = new double[col];
+        double *output = new double[col];
         for(unsigned int x = 0; x < col; x++)
         {
             //set data of each col from row into output
@@ -107,11 +107,11 @@ double* Matrix::get_col(unsigned int numCol) const
     if(col > numCol)
     {
         //creates a pointer of doubles length row to store data from col
-        double *output = new double(row);
+        double *output = new double[row];
         for(unsigned int x = 0; x < row; x++)
         {
             //set data of each row from col into output
-            output[x] = data[x][col];
+            output[x] = data[x][numCol];
         }
         return output;
     }
