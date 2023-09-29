@@ -231,22 +231,23 @@ void StudentTest(){
 		std::cout << std::endl;
 		assert(r1[0] == 10 && r1[1] == 10);
 	}
+	//cleans memory
+	delete []r1;
+
 	//get col test
 	double* c1 = NULL;
 	c1 = m3.get_col(1);
 	if(c1 != NULL)
 	{
 		std::cout << "Col 2 of m3:" << std::endl;
-		for(int x = 0; x < 2; x++)
+		for(int y = 0; y < 2; y++)
 		{
-			std::cout << c1[x] << " ";
+			std::cout << c1[y] << " ";
 		}
 		std::cout << std::endl;
 		assert(c1[0] == 10 && c1[1] == 10);
 	}
-
-	//cleans memory
-	delete []r1;
+	// //cleans memory
 	delete []c1;
 
 	//create and set matrix value
