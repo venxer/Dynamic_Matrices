@@ -22,7 +22,6 @@ own, as described in "Academic Integrity for Homework" handout.
 ESTIMATE OF # OF HOURS SPENT ON THIS ASSIGNMENT:  < 13hr >
 
 
-
 ORDER NOTATION:
 For each of the functions below, write the order notation O().
 Write each answer in terms of m = the number of rows and n = the
@@ -74,4 +73,3 @@ were tested in student test with corner case arguements.
 
 MISC. COMMENTS TO GRADER:  
 (optional, please be concise!)
-
